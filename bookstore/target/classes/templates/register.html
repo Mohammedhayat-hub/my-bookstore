@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="~{fragments :: header_links}"></div>
+    <title>Register</title>
+</head>
+<body style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh;">
+<div th:replace="~{fragments :: navbar}"></div>
+<div class="container mt-5 py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="card p-4 shadow-lg border-0">
+                <div class="card-body">
+                    <h3 class="text-center fw-bold mb-2">Create Account</h3>
+                    <p class="text-center text-muted mb-4">Join our community of readers today.</p>
+
+                    <form th:action="@{/register}" th:object="${user}" method="post">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Username</label>
+                            <input type="text" th:field="*{username}" class="form-control py-2"
+                                   th:classappend="${#fields.hasErrors('username')} ? 'is-invalid' : ''" placeholder="Enter username">
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+                            <div class="text-danger small" th:if="${usernameError}" th:text="${usernameError}"></div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Password</label>
+                            <input type="password" th:field="*{password}" class="form-control py-2"
+                                   th:classappend="${#fields.hasErrors('password')} ? 'is-invalid' : ''" placeholder="••••••••">
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100 py-2 mt-3 fs-5">Sign Up</button>
+
+                        <hr class="my-4">
+                        <p class="text-center mb-0">Already have an account? <a href="/login" class="text-decoration-none">Login here</a></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

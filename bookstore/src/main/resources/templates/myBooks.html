@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div th:replace="~{fragments :: header_links}"></div>
+    <title>My Books</title>
+</head>
+
+<body>
+
+<div th:replace="~{fragments :: navbar}"></div>
+
+<!-- CONTENT -->
+<div class="container my-5">
+
+    <h2 class="text-center mb-4">My Books</h2>
+
+    <table class="table table-striped text-center">
+        <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Author</th>
+            <th>Price</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="b : ${myBooks}" class="align-middle" style="background: white; margin-bottom: 10px; border-radius: 10px;">
+            <td class="fw-bold" th:text="${b.id}"></td>
+            <td th:text="${b.title}" class="h6"></td>
+            <td th:text="${b.author}" class="text-muted italic"></td>
+            <td>
+                <span class="badge rounded-pill bg-success px-3 py-2" th:text="'$' + ${b.price}"></span>
+            </td>
+            <td>
+                <form th:action="@{/updateStatus/{id}(id=${b.id})}" method="post">
+                    <select name="status" onchange="this.form.submit()" class="form-select form-select-sm border-0 bg-light fw-bold">
+                        <option value="Want to Read" th:selected="${b.status == 'Want to Read'}">📖 To Read</option>
+                        <option value="Reading" th:selected="${b.status == 'Reading'}">⚡ Reading</option>
+                        <option value="Finished" th:selected="${b.status == 'Finished'}">✅ Finished</option>
+                    </select>
+                </form>
+            </td>
+            <td>
+                <a th:href="@{/deleteMyBook/{id}(id=${b.id})}" class="btn btn-link text-danger text-decoration-none fw-bold">Remove</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+</body>
+</html>

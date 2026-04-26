@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en" xmlns:th="https://www.thymeleaf.com" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <div th:replace="~{fragments :: header_links}"></div>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div th:replace="~{fragments :: navbar}"></div>
+
+<!-- CONTENT -->
+<div class="container my-5">
+
+    <h2 class="text-center mb-4">Available Books</h2>
+
+    <div th:if="${msg}" class="alert alert-info text-center">
+        <p th:text="${msg}"></p>
+    </div>
+
+    <form action="/search" method="get" class="d-flex mb-3">
+        <input type="text" name="keyword" class="form-control me-2" placeholder="Search book by title...">
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Image</th> <!-- ADD THIS -->
+            <th>Name</th>
+            <th>Author</th>
+            <th>Genre</th>
+            <th>Price</th>
+        </tr>
+
+        </thead>
+
+        <tbody>
+        <tr th:each="b : ${books}">
+            <td th:text="${b.id}"></td>
+            <td>
+                <img th:src="${b.imageUrl != null ? b.imageUrl : '/images/default.png'}"
+                     width="60" height="80">
+            </td>
+
+            <td>
+                <a th:href="@{/book/{id}(id=${b.id})}"
+                   th:text="${b.title}">
+                </a>
+            </td>
+
+            <td th:text="${b.author}"></td>
+            <td th:text="${b.genre}"></td>
+            <td th:text="${b.price}"></td>
+            <td>
+    <span sec:authorize="hasRole('ADMIN')">
+        <a th:href="@{/editBook/{id}(id=${b.id})}" class="btn btn-primary">Edit</a>
+        <a th:href="@{/deleteBook/{id}(id=${b.id})}" class="btn btn-danger">Delete</a>
+    </span>
+
+                <span sec:authorize="isAuthenticated()">
+        <a th:href="@{/addToMyBooks/{id}(id=${b.id})}"
+           class="btn btn-warning"
+           th:classappend="${myBookTitles.contains(b.title)} ? 'disabled' : ''">
+            Add to My Books
+        </a>
+    </span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="d-flex justify-content-center mt-4">
+
+        <a th:if="${currentPage > 0}"
+           th:href="@{/available_books(page=${currentPage - 1})}"
+           class="btn btn-secondary me-2">
+            Previous
+        </a>
+
+        <span class="align-self-center">
+        Page <span th:text="${currentPage + 1}"></span>
+        of <span th:text="${totalPages}"></span>
+    </span>
+
+        <a th:if="${currentPage < totalPages - 1}"
+           th:href="@{/available_books(page=${currentPage + 1})}"
+           class="btn btn-secondary ms-2">
+            Next
+        </a>
+
+    </div>
+
+
+</div>
+
+</body>
+</html>

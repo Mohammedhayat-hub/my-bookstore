@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en" xmlns:th="https://www.thymeleaf.com">
+<head>
+    <div th:replace="~{fragments :: header_links}"></div>
+    <title>Edit Book</title>
+   </head>
+
+<body>
+
+<div class="container my-5 p-5" style="border: 1px solid black">
+    <h4 class="text-center">Edit Book</h4>
+
+    <form th:action="@{/save}" method="post" th:object="${book}" class="col-md-4 offset-md-4">
+        <input type="hidden" th:field="*{id}">
+
+        <div class="mb-3">
+            <label class="form-label">Book Name</label>
+            <input type="text" class="form-control" th:field="*{title}">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Author</label>
+            <input type="text" class="form-control" th:field="*{author}">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Genre</label>
+            <select class="form-select" th:field="*{genre}">
+                <option value="Fiction">Fiction</option>
+                <option value="Non-Fiction">Non-Fiction</option>
+                <option value="Tech">Tech</option>
+                <option value="Fantasy">Fantasy</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Price</label>
+            <input type="text" class="form-control" th:field="*{price}">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Image URL</label>
+            <input type="text" class="form-control" th:field="*{imageUrl}">
+        </div>
+
+        <center>
+            <button type="submit" class="btn btn-success">Update</button>
+        </center>
+
+    </form>
+</div>
+
+</body>
+</html>

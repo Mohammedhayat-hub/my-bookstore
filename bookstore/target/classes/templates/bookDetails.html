@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="~{fragments :: header_links}"></div>
+    <title>Book Details</title>
+
+</head>
+
+<body>
+
+<div class="container my-5">
+
+    <h2 class="text-center mb-4">Book Details</h2>
+
+    <div class="card mx-auto" style="width: 25rem;">
+
+        <div class="card-body text-center">
+            <img th:src="${book.imageUrl != null ? book.imageUrl : '/images/default.png'}"
+                 class="card-img-top mb-3"
+                 alt="Book Image">
+
+            <h4 class="card-title" th:text="${book.title}"></h4>
+
+            <p class="card-text">
+                <strong>Author:</strong>
+                <span th:text="${book.author}"></span>
+            </p>
+
+            <p class="card-text">
+                <strong>Price:</strong>
+                <span th:text="${book.price}"></span>
+            </p>
+
+            <a href="/available_books" class="btn btn-secondary mt-3">
+                Back
+            </a>
+
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

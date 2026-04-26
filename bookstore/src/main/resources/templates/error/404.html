@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Not Found</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="container text-center mt-5">
+<h1 class="display-1">404</h1>
+<p class="lead" th:text="${errorMessage}">Book not found</p>
+<a href="/available_books" class="btn btn-primary">Back to Books</a>
+</body>
+</html>
